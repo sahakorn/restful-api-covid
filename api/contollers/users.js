@@ -1,4 +1,5 @@
 const Users = require('../models/users')
+const Checkpoint = require('../models/checkpoint')
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 exports.create_users = (req,res,next)=>{
@@ -69,6 +70,7 @@ exports.delete_user = (req,res,next)=>{
 }
 exports.login_user = (req,res,next)=>{
     Users.findAll({
+      
         where: {
             username: req.body.username
         }
@@ -83,36 +85,45 @@ exports.login_user = (req,res,next)=>{
         bcrypt.compare(req.body.password, data[0].password).then((result) =>{
             console.log(result)
             if(result){
-                const user_data = {
-                    user_id:data[0].user_id,
-                    username:data[0].email,
-                    prename:data[0].prename,
-                    firstname:data[0].firstname,
-                    lastname:data[0].lastname,
-                    email:data[0].email,
-                    position:data[0].position,
-                    checkpoint_id:data[0].checkpoint_id
-                }
-                console.log(user_data)
-                const token = jwt.sign(
-                    {
+                Checkpoint.findAll({
+                    where:{checkpoint_id:data[0].checkpoint_id}
+                }).then(ch_data=>{
+                    const user_data = {
                         user_id:data[0].user_id,
-                        username:data[0].email,
+                        username:data[0].username,
                         prename:data[0].prename,
                         firstname:data[0].firstname,
                         lastname:data[0].lastname,
                         email:data[0].email,
                         position:data[0].position,
-                        checkpoint_id:data[0].checkpoint_id
-                    },
-                        process.env.SERVER_KEY,
-                    {
-                        expiresIn:"7d"
+                        checkpoint_data:ch_data[0]
+                    }
+                    console.log(user_data)
+                    const token = jwt.sign(
+                        {
+                            user_id:data[0].user_id,
+                            username:data[0].email,
+                            prename:data[0].prename,
+                            firstname:data[0].firstname,
+                            lastname:data[0].lastname,
+                            email:data[0].email,
+                            position:data[0].position,
+                            checkpoint_id:data[0].checkpoint_id
+                        },
+                            process.env.SERVER_KEY,
+                        {
+                            expiresIn:"7d"
+                        })
+                    return res.status(200).json({
+                        token:token,
+                        user_data:user_data
+                    }) 
+                }).catch(error=>{
+                    return res.status(500).json({
+                        message:error.message
                     })
-                return res.status(200).json({
-                    token:token,
-                    user_data:user_data
-                }) 
+                })
+                
             }else{
                 return res.status(401).json({
                     message:"Auth Failed"

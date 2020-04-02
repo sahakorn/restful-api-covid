@@ -8,6 +8,9 @@ const course = require('./api/routes/course')
 const thai_addr = require('./thaiaddress/routes/thai_addr')
 const checkpoint = require('./api/routes/checkpoint')
 const users = require('./api/routes/users')
+const vehicle = require('./api/routes/vehicle')
+const quarantine_place = require('./api/routes/quarantine_place')
+const immigration = require('./api/routes/immigration')
 const db = require('./config/cmysql')
 db.authenticate()
 .then(() => {
@@ -34,7 +37,10 @@ app.use('/auth',auth);
 app.use('/course',course);
 app.use('/getlocation',thai_addr);
 app.use('/checkpoint',checkpoint);
-app.use('/users',users)
+app.use('/users',users);
+app.use('/vehicle',vehicle);
+app.use('/quarantine-place',quarantine_place);
+app.use('/immigration',immigration);
 // Handle Error 
 app.use((req,res,next) => {
     const error = new Error('Not Found');
