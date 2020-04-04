@@ -4,7 +4,6 @@ const morgan = require('morgan');
 const bodyParser = require('body-parser');
 
 const auth = require('./auth/routers/auth');
-const course = require('./api/routes/course')
 const thai_addr = require('./thaiaddress/routes/thai_addr')
 const checkpoint = require('./api/routes/checkpoint')
 const users = require('./api/routes/users')
@@ -34,7 +33,6 @@ app.use((req,res,next)=>{
 });
 // main function
 app.use('/auth',auth);
-app.use('/course',course);
 app.use('/getlocation',thai_addr);
 app.use('/checkpoint',checkpoint);
 app.use('/users',users);

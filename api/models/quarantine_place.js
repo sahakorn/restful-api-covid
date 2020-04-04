@@ -1,4 +1,4 @@
-const sequelize = require('Sequelize')
+const sequelize = require('sequelize')
 // load Sequelize for mysql model.
 const db = require('../../config/cmysql')
 // Create Model for user_auth (User Data)
