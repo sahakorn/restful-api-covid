@@ -7,9 +7,9 @@
 
 // }
 const host = {
-    host:"203.157.118.6",
+    host:"192.168.200.120",
     user:"sa",
-    password:"sa",
+    password:"saveplk",
     database:"save_plk",
     multipleStatements:true
 
