@@ -10,6 +10,8 @@ const users = require('./api/routes/users')
 const vehicle = require('./api/routes/vehicle')
 const quarantine_place = require('./api/routes/quarantine_place')
 const immigration = require('./api/routes/immigration')
+const income = require('./api/routes/income');
+const via = require('./api/routes/via')
 const db = require('./config/cmysql')
 db.authenticate()
 .then(() => {
@@ -39,6 +41,8 @@ app.use('/users',users);
 app.use('/vehicle',vehicle);
 app.use('/quarantine-place',quarantine_place);
 app.use('/immigration',immigration);
+app.use('/income',income);
+app.use('/via',via);
 // Handle Error 
 app.use((req,res,next) => {
     const error = new Error('Not Found');
