@@ -39,6 +39,9 @@ const Via = db.define('via',{
     total:{
         type:sequelize.NUMBER
     },
+    via_type:{
+        type:sequelize.STRING
+    },
     stay_at:{
         type:sequelize.STRING
     },
