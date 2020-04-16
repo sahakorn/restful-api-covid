@@ -12,7 +12,7 @@ const quarantine_place = require('./api/routes/quarantine_place')
 const immigration = require('./api/routes/immigration')
 const income = require('./api/routes/income');
 const via = require('./api/routes/via')
-const user = require('./api/routes/users')
+const user = require('./api/routes/user')
 const db = require('./config/cmysql')
 db.authenticate()
 .then(() => {
