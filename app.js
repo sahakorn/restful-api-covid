@@ -44,7 +44,7 @@ app.use('/quarantine-place',quarantine_place);
 app.use('/immigration',immigration);
 app.use('/income',income);
 app.use('/via',via);
-app.use('/user',via);
+app.use('/user',user);
 // Handle Error 
 app.use((req,res,next) => {
     const error = new Error('Not Found');
